@@ -2,6 +2,7 @@ import React from "react";
 import { Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 
 import POJO from './../../components/dumb/POJO';
+import ResultsTable from './../../components/dumb/ResultsTable';
 
 const pivotalStates = [
   "unscheduled",
@@ -23,11 +24,12 @@ export default class Custom extends React.Component {
   }
 
   selectChanged(select) {
-    this.props.fetchStories();
+    const selected = [...select.options]
+    .filter(option => option.selected)
+    .map(option => option.value);
+    this.props.fetchStories(selected);
     this.setState({
-      selected: [...select.options]
-        .filter(option => option.selected)
-        .map(option => option.value)
+      selected: selected
     });
   }
 
@@ -38,10 +40,9 @@ export default class Custom extends React.Component {
   }
 
   render() {
-      console.log(this.props)
     return (
       <Row>
-        <Col md={3}>
+        <Col md={12}>
           <h2>Selected States:</h2>
           <ul>
             {this.state.selected.map((s, i) => (
@@ -67,14 +68,15 @@ export default class Custom extends React.Component {
             </FormGroup>
           </Form>
         </Col>
-        <Col md={9}>
+        <Col md={12}>
             <p>Fetching: {this.props.fetching.toString()}</p>
             
             <div>
                 Stories:
             </div>
             <div>
-                {this.props.data.length? this.renderPOJO() : null}
+                {/* {this.props.data.length? this.renderPOJO() : null} */}
+                {this.props.data.length > 0? <ResultsTable data={this.props.data}/> : null}
             </div>
         </Col>
       </Row>

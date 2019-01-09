@@ -15,12 +15,13 @@ import { connect } from 'substate-connect';
 import Custom from './views/Custom';
 import AppState from './utils/state';
 
-const fetchStories = () => {
+const fetchStoriesByState = (states) => {
   const token = "fdb878f27aeec03fe5d03392d359602f";
   const projectId = "2188060";
+  console.log(states)
 
   // compose request URL
-  const url = `https://www.pivotaltracker.com/services/v5/projects/${projectId}/stories?filter=state:delivered,finished,rejected,started,unstarted,unscheduled&limit=20`;
+  const url = `https://www.pivotaltracker.com/services/v5/projects/${projectId}/stories?filter=state:${states.map(s =>s)}&limit=20`;
   AppState.emit('UPDATE_STATE', {
     'Custom.fetching': true,
   });
@@ -118,7 +119,7 @@ class App extends Component {
               <TabPane tabId="2">
                 Unaccepted
               </TabPane><TabPane tabId="3">
-                  <WiredCustom fetchStories={fetchStories} />
+                  <WiredCustom fetchStories={fetchStoriesByState} />
               </TabPane>
             </TabContent>
           </Col>
