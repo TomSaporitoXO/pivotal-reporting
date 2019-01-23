@@ -6,8 +6,11 @@ import {
     Input
 } from 'reactstrap';
 
-import Tokens from './../../../utils/tokens';
-import AppState from './../../../utils/state';
+import Tokens from 'Utils/tokens';
+import AppState from 'Utils/state';
+
+
+// Not really "smart"  it should just accept a prop for onChange that takes the event (not the value, so it can be used elsewhere)
 
 export default class UserForm extends Component {
   static propTypes = {

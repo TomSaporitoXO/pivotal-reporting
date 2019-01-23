@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Table} from 'reactstrap';
 
-import TRow from './../TRow';
+import TRow from 'Dumb/TRow';
 
 function ResultsTable(props) {
     const renderTH = (obj) => {

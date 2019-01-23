@@ -5,10 +5,10 @@ import {
   Col,
 } from "reactstrap";
 
-import AppState from "./utils/state";
-import UserForm from "./components/smart/UserForm";
-import Header from "./components/dumb/Header";
-import Tabs from './components/dumb/Tabs';
+import AppState from "Utils/state";
+import UserForm from "Smart/UserForm";
+import Header from "Dumb/Header";
+import Tabs from 'Dumb/Tabs';
 
 
 class App extends Component {
