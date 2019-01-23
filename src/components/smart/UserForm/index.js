@@ -13,9 +13,6 @@ import AppState from 'Utils/state';
 // Not really "smart"  it should just accept a prop for onChange that takes the event (not the value, so it can be used elsewhere)
 
 export default class UserForm extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
 
   changeUser = (val) =>{
     AppState.emit('UPDATE_STATE', {

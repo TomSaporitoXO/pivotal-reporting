@@ -4,7 +4,7 @@ const AppState = new substate({
     state: {
         Custom: {
             fetching: false,
-            data: []
+            cards: []
         }
     }
 });
