@@ -4,12 +4,16 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { connect } from 'substate-connect';
 
 import AppState from "Utils/state";
 import UserForm from "Smart/UserForm";
+import Grid from 'Smart/Grid';
 import Header from "Dumb/Header";
-import Tabs from 'Dumb/Tabs';
 
+const WiredGrid = connect(AppState, {
+  data: 'cards',
+})(Grid);
 
 class App extends Component {
   constructor(props) {
@@ -32,16 +36,16 @@ class App extends Component {
     return (
       <Container>
         <Row>
-          <Col>
+          <Col sm={9}>
             <Header User={User} />
           </Col>
-          <Col>
+          <Col sm={3}>
             <UserForm />
           </Col>
         </Row>
         <Row>
           <Col>
-            <Tabs />
+            <Grid />
           </Col>
         </Row>
       </Container>
