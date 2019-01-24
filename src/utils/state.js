@@ -2,10 +2,17 @@ import substate from 'substate';
 
 const AppState = new substate({
     state: {
-        Custom: {
+        Grid: {
             fetching: false,
-            cards: []
-        }
+            data: []
+        },
+        Filters: {
+            labels: [],
+        },
+        User: {
+            name: null,
+            token: null,
+        } 
     }
 });
 export default AppState;

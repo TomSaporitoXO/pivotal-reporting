@@ -92,7 +92,7 @@ export default class Custom extends React.Component {
             <Row>
               <Col sm={4} md={3}>
                 <FormGroup>
-                  <Label for="exampleSelectMulti">Card States:</Label>
+                  <Label for="exampleSelectMulti">By Card States:</Label>
                   <Input
                     onChange={e => this.ph(e)}
                     type="select"
@@ -110,7 +110,20 @@ export default class Custom extends React.Component {
               </Col>
               <Col sm={4} md={3}>
                 <FormGroup>
-                 by label
+                <Label for="exampleSelectMulti">By Labels:</Label>
+                  <Input
+                    onChange={e => this.ph(e)}
+                    type="select"
+                    name="selectMulti"
+                    id="selectMulti"
+                    multiple
+                  >
+                    {this.props.filters.labels.map((v, i) => (
+                      <option key={i} value={v.id}>
+                        {v.name}
+                      </option>
+                    ))}
+                  </Input>
                 </FormGroup>
               </Col>
               <Col sm={4} md={3}>

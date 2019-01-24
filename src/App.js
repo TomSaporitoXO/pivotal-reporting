@@ -10,29 +10,33 @@ import AppState from "Utils/state";
 import UserForm from "Smart/UserForm";
 import Grid from 'Smart/Grid';
 import Header from "Dumb/Header";
+import { fetchLabelsAsync } from 'Utils/api';
 
 const WiredGrid = connect(AppState, {
-  data: 'cards',
+  data: 'Grid.data',
+  filters: 'Filters',
 })(Grid);
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    
-    this.state = {
-      User: {
-        name: null,
-        token: null
-      }
-    };
+    this.state = AppState.getCurrentState();
 
     AppState.on("STATE_UPDATED", ns => this.setState(ns));
+    AppState.on('STATE_UPDATED', ns => console.log(ns));
+  }
+
+  componentWillMount(){
+    (async () => {
+      const result = await fetchLabelsAsync();
+      AppState.emit('UPDATE_STATE', {'Filters.labels': result})
+    })();
   }
 
 
   render() {
-    const { User } = this.state;
+    const { User, Filters } = this.state;
     return (
       <Container>
         <Row>
@@ -45,7 +49,8 @@ class App extends Component {
         </Row>
         <Row>
           <Col>
-            <Grid />
+            <WiredGrid />
+            {Filters.labels.length}
           </Col>
         </Row>
       </Container>

@@ -265,8 +265,6 @@ module.exports = function(webpackEnv) {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
-        'react': 'preact-compat',
-        'react-dom': 'preact-compat',
         Utils: path.resolve(__dirname, '../src/utils'),
         Dumb: path.resolve(__dirname, '../src/components/dumb'),
         Smart: path.resolve(__dirname, '../src/components/smart'),
