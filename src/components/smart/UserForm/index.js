@@ -19,7 +19,8 @@ export default class UserForm extends Component {
         User: {
             name: val,
             token: Tokens[val]
-        }
+        },
+        LoggedIn: true
     });
   }
 

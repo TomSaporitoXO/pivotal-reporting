@@ -1,13 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import apiColumns from 'Utils/columns';
 
 function TRow(props) {
     const renderTDs = ()=> {
         const tds = [];
-        let v;
-        for (v in props.row) {
-            tds.push(<td key={tds.length}>{props.row[v].toString()}</td>);
+        const {row} = props;
+        let x;
+        for (x in row){
+            // some rows have data and keys that others dont have;
+            if(apiColumns[x]){
+                if(!apiColumns[x].ignore){
+                  if(apiColumns[x].processor){
+                    tds.push(<td key={tds.length}>{apiColumns[x].process(row[x]).toString()}</td>)
+                  } else {
+                    tds.push(<td key={tds.length}>{row[x].toString()}</td>)
+                  }
+                }
+            }
         }
+       
         return tds;
     }
   return (
@@ -17,9 +28,7 @@ function TRow(props) {
   )
 }
 
-TRow.propTypes = {
 
-}
 
 export default TRow
 

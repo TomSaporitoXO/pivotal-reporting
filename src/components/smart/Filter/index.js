@@ -128,12 +128,25 @@ export default class Custom extends React.Component {
               </Col>
               <Col sm={4} md={3}>
                 <FormGroup>
-                 by X
+                 <Label for="epicSelect">By Epic:</Label>
+                  <Input
+                    onChange={e => this.ph(e)}
+                    type="select"
+                    name="epicSelect"
+                    id="epicSelect"
+                    multiple
+                  >
+                    {this.props.epics.epics.map((v, i) => (
+                      <option key={i} value={v.id}>
+                        {v.name}
+                      </option>
+                    ))}
+                  </Input>
                 </FormGroup>
               </Col>
               <Col sm={4} md={3}>
                 <FormGroup>
-                 by Y
+                 nothing yet
                 </FormGroup>
               </Col>
             </Row>

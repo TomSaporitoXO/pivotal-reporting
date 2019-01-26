@@ -4,17 +4,28 @@ import {Table} from 'reactstrap';
 
 import TRow from 'Dumb/TRow';
 
+import apiColumns from 'Utils/columns';
+
+
+
+// these get fed the data to process if processor is not null, else just show data
+
+console.log(apiColumns)
+
+
 function ResultsTable(props) {
     const renderTH = (obj) => {
         const ths = [];
         let x;
         for (x in obj){
-            ths.push(<th key={ths.length}>{x.toString()}</th>)
+            if(!apiColumns[x].ignore){
+                ths.push(<th key={ths.length}>{apiColumns[x].name}</th>)
+            }
         }
         return ths;
     };
   return (
-    <Table>
+    <Table striped>
         <thead>
             <tr>
                 {renderTH(props.data[0])}
