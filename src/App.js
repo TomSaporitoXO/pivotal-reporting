@@ -24,9 +24,16 @@ class App extends Component {
     this.state = AppState.getCurrentState();
 
     AppState.on("STATE_UPDATED", ns => this.setState(ns));
-    AppState.on("STATE_UPDATED", ns => console.log(ns));
+    AppState.on("STATE_UPDATED", ns => console.log('NEW STATE', ns , AppState));
     AppState.on("GOT_LABELS", ns => this.awaitLabel(ns.User.token));
-    AppState.on("GOT_EPICS", ns => this.awaitStories(ns.User.token));
+    AppState.on("GOT_EPICS", ns => ns.GotAllData? null : this.awaitStories(ns.User.token, 0));
+    AppState.on("STATE_UPDATED",  ns=>{
+      if(!ns.GotAllData){
+        setTimeout(()=>{
+          this.awaitStories(ns.User.token, ns.offset) 
+        },100)
+      }
+    });
   }
 
   awaitLabel = token => {
@@ -34,7 +41,7 @@ class App extends Component {
       const result = await fetchEpicsAsync(token);
       AppState.emit("UPDATE_STATE", {
         $type: 'GOT_EPICS',
-        "Epics.epics": result
+        "Filters.epics": result
       });
     })();
   };
@@ -53,11 +60,17 @@ class App extends Component {
     }
   }
 
-  awaitStories = (token)=>{
+
+  awaitStories = (token, offset)=>{
     (async () => {
-      const result = await fetchStoriesAsync(token);
+      const result = await fetchStoriesAsync(token, offset);
+      const gotAll = result.length < 100? true : false;
+
+      const data = AppState.getCurrentState().Grid.data.concat(result);
       AppState.emit("UPDATE_STATE", {
-        'Grid.data': result
+        'Grid.data': data,
+        'GotAllData': gotAll,
+        'offset': parseInt(AppState.getProp('offset') + 100)
       });
     })();
   }

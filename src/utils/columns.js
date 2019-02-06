@@ -8,16 +8,14 @@ class Column{
         this.name = name;
         this.ignore = ignore;
         this.processor = processor;
-
-        console.log(this);
     }
 
     process = (data) => this.processor(data)
 }
 
 const apiColumns = {
-    kind: new Column("kind", null, true),
     id: new Column("ID"),
+    kind: new Column("kind", null, true),
     created_at: new Column("Create on", createDate),
     updated_at:new Column("Updated on", null, true),
     accepted_at:new Column("Accepted on", createDate),

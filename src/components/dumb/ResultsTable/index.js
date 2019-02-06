@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {Table} from 'reactstrap';
 
 import TRow from 'Dumb/TRow';
@@ -10,20 +9,35 @@ import apiColumns from 'Utils/columns';
 
 // these get fed the data to process if processor is not null, else just show data
 
-console.log(apiColumns)
+
 
 
 function ResultsTable(props) {
     const renderTH = (obj) => {
         const ths = [];
-        let x;
-        for (x in obj){
-            if(!apiColumns[x].ignore){
-                ths.push(<th key={ths.length}>{apiColumns[x].name}</th>)
+        const keys = Object.keys(apiColumns);
+        for (let i = 0; i <keys.length; i++){
+            if(obj[keys[i]]){
+                if(!apiColumns[keys[i]].ignore){
+                    ths.push(<th key={ths.length}>{apiColumns[keys[i]].name}</th>)
+                }
             }
         }
         return ths;
     };
+
+    const renderTDs = (obj) =>{
+        const tds =[];
+        const keys = Object.keys(apiColumns);
+        for (let i = 0; i <keys.length; i++){
+            if(obj[keys[i]]){
+                if(!apiColumns[keys[i]].ignore){
+                    tds.push(<td key={tds.length}>{apiColumns[]}</td>)
+                }
+            }
+        }
+        return tds;
+    }
   return (
     <Table striped>
         <thead>
@@ -32,14 +46,16 @@ function ResultsTable(props) {
             </tr>
         </thead>
         <tbody>
-            {props.data.map((d,i)=> <TRow key={i} row={d}/>)}
+            {props.data.map((d,i)=> {
+                return(
+                    <tr key={i}>
+                        {renderTDs(d)}
+                    </tr>
+                );
+            })}
         </tbody>
     </Table>
   )
-}
-
-ResultsTable.propTypes = {
-
 }
 
 export default ResultsTable

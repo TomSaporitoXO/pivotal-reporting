@@ -2,23 +2,36 @@ import substate from 'substate';
 
 const AppState = new substate({
     state: {
+        offset: 0,
+        GotAllData: false,
         LoggedIn: false,
         Grid: {
             fetching: false,
             data: []
         },
         Filters: {
-            fetched: false,
+            state:[
+                "unscheduled",
+                "unstarted",
+                "planned",
+                "started",
+                "finished",
+                "delivered",
+                "rejected",
+                "accepted"
+              ],
             labels: [],
-        },
-        User: {
-            name: null,
-            token: null,
-        },
-        Epics: {
-            fetched: false,
             epics: [],
-        } 
+            points: [0, 1, 2, 3, 5, 8],
+            kind: [
+                "task",
+                "bug",
+                "feature",
+                "chore"
+              ],
+        },
+        AppliedFilters: {},
+        User: {}
     }
 });
 export default AppState;
